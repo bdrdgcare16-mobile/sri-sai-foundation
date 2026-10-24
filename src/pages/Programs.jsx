@@ -1,5 +1,6 @@
 import { CircleCheck } from 'lucide-react';
 import SectionHeading from '../components/SectionHeading';
+import Reveal from '../components/Reveal';
 import { programs } from '../data/foundation';
 
 export default function Programs() {
@@ -20,7 +21,7 @@ export default function Programs() {
             {programs.map((program, index) => {
               const Icon = program.icon;
               return (
-                <article className="program-detail" key={program.title}>
+                <Reveal as="article" className="program-detail" key={program.title} delay={index * 60}>
                   <div className="program-detail-head">
                     <span>0{index + 1}</span>
                     <div className="program-icon large"><Icon size={28} /></div>
@@ -32,7 +33,7 @@ export default function Programs() {
                   <div className="program-detail-points">
                     {program.bullets.map(item => <p key={item}><CircleCheck size={17} /> {item}</p>)}
                   </div>
-                </article>
+                </Reveal>
               );
             })}
           </div>

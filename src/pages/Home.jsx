@@ -5,7 +5,23 @@ import {
 } from 'lucide-react';
 import HeroSlideshow from '../components/HeroSlideshow';
 import SectionHeading from '../components/SectionHeading';
-import { compliance, foundation } from '../data/foundation';
+import Reveal, { CountUp } from '../components/Reveal';
+import { compliance, foundation, programs } from '../data/foundation';
+
+// Every figure below is derived from the Foundation's own records in
+// `data/foundation.js` — nothing here is an estimate.
+const FOUNDED_YEAR = 2016;
+
+const stats = [
+  { to: new Date().getFullYear() - FOUNDED_YEAR, suffix: '+', label: 'Years of service' },
+  { to: programs.length, suffix: '', label: 'Program focus areas' },
+  { to: compliance.length, suffix: '', label: 'Public registrations' },
+  {
+    to: compliance.reduce((total, item) => total + (item.docs?.length || 0), 0),
+    suffix: '',
+    label: 'Verified documents',
+  },
+];
 
 export default function Home() {
   return (
@@ -36,7 +52,7 @@ export default function Home() {
               <strong>2016</strong><span>Established</span>
             </div>
             <div className="floating-card card-focus">
-              <UsersRound size={20} /><span>Women & community empowerment</span>
+              <UsersRound size={20} /><span>Women &amp; community empowerment</span>
             </div>
           </div>
         </div>
@@ -47,19 +63,41 @@ export default function Home() {
           <div><strong>2016</strong><span>Trust established</span></div>
           <div><strong>{foundation.darpanId}</strong><span>NGO Darpan ID</span></div>
           <div><strong>{foundation.csrNo}</strong><span>CSR registration</span></div>
-          <div><strong>12A & 80G</strong><span>Tax registrations</span></div>
+          <div><strong>12A &amp; 80G</strong><span>Tax registrations</span></div>
         </div>
       </section>
 
       <section className="section section-cream">
         <div className="container split-intro">
-          <div>
+          <Reveal>
             <span className="eyebrow">Who we are</span>
             <h2>Purpose built around people, not programmes alone.</h2>
-          </div>
-          <div>
+          </Reveal>
+          <Reveal delay={90}>
             <p>Our trust deed sets out a broad charitable mission: educational support, skill development, women’s empowerment, medical relief, welfare for vulnerable people, food and nutrition, village development, environmental awareness and livelihoods.</p>
             <Link className="text-link dark" to="/about">Read about the foundation <MoveRight size={18} /></Link>
+          </Reveal>
+        </div>
+      </section>
+
+      <section className="section">
+        <div className="container">
+          <Reveal>
+            <SectionHeading eyebrow="What we do" title="Six focus areas, one shared purpose." text="Each area reflects a charitable objective set out in the Foundation’s trust deed. Explore the detail behind any of them." />
+          </Reveal>
+          <div className="program-grid">
+            {programs.map((program, index) => {
+              const Icon = program.icon;
+              return (
+                <Reveal as="article" className="program-card" key={program.title} delay={index * 70}>
+                  <span className="program-index">0{index + 1}</span>
+                  <div className="program-icon"><Icon size={24} /></div>
+                  <h3>{program.title}</h3>
+                  <p>{program.short}</p>
+                  <Link to="/programs">Learn more <ArrowRight size={14} /></Link>
+                </Reveal>
+              );
+            })}
           </div>
         </div>
       </section>
@@ -84,19 +122,30 @@ export default function Home() {
             </div>
           </div>
         </div>
+
+        <div className="container impact-stats">
+          {stats.map((stat, index) => (
+            <Reveal className="stat-tile" key={stat.label} delay={index * 80}>
+              <strong><CountUp to={stat.to} suffix={stat.suffix} /></strong>
+              <span>{stat.label}</span>
+            </Reveal>
+          ))}
+        </div>
       </section>
 
       <section className="section section-cream">
         <div className="container">
-          <SectionHeading eyebrow="Trust & governance" title="Registered. Accountable. Ready to collaborate." text="Key registrations from the Foundation’s official records are presented here for institutional and CSR partners." />
+          <Reveal>
+            <SectionHeading eyebrow="Trust & governance" title="Registered. Accountable. Ready to collaborate." text="Key registrations from the Foundation’s official records are presented here for institutional and CSR partners." />
+          </Reveal>
           <div className="compliance-grid">
             {compliance.map((item, i) => (
-              <div className="compliance-card" key={item.label}>
+              <Reveal className="compliance-card" key={item.label} delay={i * 70}>
                 <div className="compliance-icon">{i === 2 ? <Building2 /> : <ShieldCheck />}</div>
                 <span>{item.label}</span>
                 <strong>{item.value}</strong>
                 <p>{item.meta}</p>
-              </div>
+              </Reveal>
             ))}
           </div>
           <div className="center-action"><Link className="btn btn-dark" to="/compliance">View compliance details <ArrowRight size={17} /></Link></div>
@@ -105,14 +154,14 @@ export default function Home() {
 
       <section className="section cta-wrap">
         <div className="container">
-          <div className="cta-card">
+          <Reveal className="cta-card">
             <div>
               <span className="eyebrow light">Partnerships that create possibility</span>
               <h2>Work with us to expand meaningful community impact.</h2>
               <p>We welcome conversations with CSR teams, institutions, donors, volunteers and community partners aligned with our charitable objectives.</p>
             </div>
             <Link className="btn btn-accent" to="/contact">Start a conversation <ArrowRight size={18} /></Link>
-          </div>
+          </Reveal>
         </div>
       </section>
     </>

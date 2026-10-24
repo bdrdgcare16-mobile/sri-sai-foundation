@@ -137,8 +137,7 @@ export const principles = [
 // `/images/hero-1.jpg`. Add or remove entries freely — one slide renders as a
 // still image, two or more turn on the crossfade and the dots.
 export const heroSlides = [
-  { src: '/images/hero-1.jpg', alt: 'Sri Sai Foundation volunteers with the community' },
-   { src: '/images/hero-2.jpg', alt: 'Women’s tailoring skill-development session' },
-   { src: '/images/hero-3.jpg', alt: 'Students receiving educational support' },
-   { src: '/images/hero-4.jpg', alt: 'Students receiving educational support' },
+  { src: '/images/hero-1.jpg', alt: 'Community health and skill-training session led by Sri Sai Foundation volunteers' },
+  { src: '/images/hero-2.jpg', alt: 'Young women attending a classroom education and skill-development session' },
+  { src: '/images/hero-3.jpg', alt: 'Health centre staff and community members at a Sri Sai Foundation outreach event' },
 ];
